@@ -1,5 +1,3 @@
-function main() {
-    console.log('Hello World');
+function main(x: number, y: number): number {
+  return x + y;
 }
-
-main(); 
