@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
@@ -11,6 +10,7 @@
     "format:check": "prettier . --check",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
+    "test": "jest --watch --runInBand",
     "prepare": "husky"
   },
   "author": "",
@@ -19,13 +19,18 @@
   "devDependencies": {
     "@eslint/js": "^9.37.0",
     "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.8.0",
+    "@types/supertest": "^6.0.3",
     "@types/winston": "^2.4.4",
     "eslint": "^9.37.0",
     "eslint-plugin-unused-imports": "^4.2.0",
     "globals": "^16.4.0",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "prettier": "3.6.2",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.1"
