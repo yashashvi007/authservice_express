@@ -1,4 +1,6 @@
 node_modules
 dist
-.env
 logs
+.env.test
+.env.dev
+.env.prod

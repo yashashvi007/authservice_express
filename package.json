@@ -4,14 +4,15 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/server.js",
-    "dev": "nodemon src/server.ts",
+    "start": "ts-node src/index.ts",
+    "dev": "cross-env NODE_ENV=dev nodemon src/server.ts",
     "format:fix": "prettier . --write",
     "format:check": "prettier . --check",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "jest --watch --runInBand",
-    "prepare": "husky"
+    "prepare": "husky",
+    "typeorm": "typeorm-ts-node-commonjs"
   },
   "author": "",
   "license": "ISC",
@@ -42,10 +43,15 @@
     ]
   },
   "dependencies": {
+    "@types/pg": "^8.15.5",
+    "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "http-errors": "^2.0.0",
     "husky": "^9.1.7",
+    "pg": "^8.14.1",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "0.3.27",
     "winston": "^3.18.3"
   }
 }
