@@ -19,7 +19,7 @@ class AuthController {
     try {
       const user = await this.userService.create({ firstName, lastName, email, password });
       this.logger.info(`User ${firstName} ${lastName} registered successfully`);
-      res.status(201).json({ id: user.id });
+      res.status(201).json({ id: user.id, role: user.role });
     } catch (error) {
       next(error);
       return;

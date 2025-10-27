@@ -1,25 +1,40 @@
 import request from 'supertest';
-import app from '../../src/app';
-import { expect, describe, it, beforeAll, afterAll } from '@jest/globals';
-import { AppDataSource } from '../../src/data-source';
+import { expect, describe, it, beforeAll, afterAll, beforeEach } from '@jest/globals';
 import { User } from '../../src/entity/User';
-import { DataSource } from 'typeorm';
-import { beforeEach } from 'node:test';
+import { AppDataSource } from '../../src/data-source';
+import { ROLES } from '../../src/constants';
+import app from '../../src/app';
 
 describe('POST /auth/register', () => {
-  let connection: DataSource;
-
   beforeAll(async () => {
-    connection = await AppDataSource.initialize();
+    // Initialize AppDataSource if not already initialized
+    if (!AppDataSource.isInitialized) {
+      await AppDataSource.initialize();
+    }
+
+    // Create tables manually for tests
+    await AppDataSource.query(`
+      CREATE TABLE IF NOT EXISTS "user" (
+        "id" SERIAL PRIMARY KEY,
+        "firstName" VARCHAR NOT NULL,
+        "lastName" VARCHAR NOT NULL,
+        "email" VARCHAR NOT NULL,
+        "password" VARCHAR NOT NULL,
+        "role" VARCHAR NOT NULL
+      )
+    `);
   });
 
   beforeEach(async () => {
-    await connection.dropDatabase();
-    await connection.synchronize();
+    // Clear the user table using AppDataSource
+    const userRepository = AppDataSource.getRepository(User);
+    await userRepository.clear();
   });
 
   afterAll(async () => {
-    await connection.destroy();
+    if (AppDataSource.isInitialized) {
+      await AppDataSource.destroy();
+    }
   });
 
   describe('Given all fields', () => {
@@ -47,10 +62,6 @@ describe('POST /auth/register', () => {
     });
 
     it('should return the created user', async () => {
-      // Clean the database before this specific test
-      const userRepository = AppDataSource.getRepository(User);
-      await userRepository.clear(); // Use clear() instead of delete({})
-
       const userData = {
         firstName: 'John',
         lastName: 'Doe',
@@ -60,6 +71,7 @@ describe('POST /auth/register', () => {
 
       await request(app).post('/auth/register').send(userData);
 
+      const userRepository = AppDataSource.getRepository(User);
       const users = await userRepository.find();
       expect(users.length).toBe(1);
       expect(users[0]?.firstName).toBe(userData.firstName);
@@ -69,8 +81,6 @@ describe('POST /auth/register', () => {
     });
 
     it('should return id of the created user', async () => {
-      const userRepository = AppDataSource.getRepository(User);
-      await userRepository.clear(); // Use clear() instead of delete({})
       const userData = {
         firstName: 'John',
         lastName: 'Doe',
@@ -83,8 +93,6 @@ describe('POST /auth/register', () => {
     });
 
     it('should assign a customer a role', async () => {
-      const userRepository = AppDataSource.getRepository(User);
-      await userRepository.clear();
       const userData = {
         firstName: 'John',
         lastName: 'Doe',
@@ -93,6 +101,7 @@ describe('POST /auth/register', () => {
       };
 
       await request(app).post('/auth/register').send(userData);
+      const userRepository = AppDataSource.getRepository(User);
       const users = await userRepository.find();
       expect(users[0]).toHaveProperty('role');
       expect(users[0]?.role).toBe('customer');
@@ -112,6 +121,23 @@ describe('POST /auth/register', () => {
       expect(users[0]?.password).not.toBe(userData.password);
       expect(users[0]?.password).toHaveLength(60);
       expect(users[0]?.password).toMatch(/^\$2b\$10\$/);
+    });
+
+    it('should retur 400 status code if email is already in use', async () => {
+      const userData = {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        password: 'password',
+      };
+
+      const userRepository = AppDataSource.getRepository(User);
+      await userRepository.save({ ...userData, role: ROLES.CUSTOMER });
+
+      const response = await request(app).post('/auth/register').send(userData);
+      const users = await userRepository.find();
+      expect(response.status).toBe(400);
+      expect(users).toHaveLength(1);
     });
   });
 

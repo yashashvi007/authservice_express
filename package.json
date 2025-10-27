@@ -12,7 +12,8 @@
     "lint:fix": "eslint . --fix",
     "test": "jest --watch --runInBand",
     "prepare": "husky",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "lint-staged": "lint-staged"
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +31,7 @@
     "eslint-plugin-unused-imports": "^4.2.0",
     "globals": "^16.4.0",
     "jest": "^30.2.0",
+    "lint-staged": "^16.2.6",
     "nodemon": "^3.1.10",
     "prettier": "3.6.2",
     "supertest": "^7.1.4",
