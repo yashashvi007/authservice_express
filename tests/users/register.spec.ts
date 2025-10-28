@@ -141,5 +141,34 @@ describe('POST /auth/register', () => {
     });
   });
 
-  describe('Given invalid fields', () => {});
+  describe('Given invalid fields', () => {
+    it('should return 400 status code if email is not provided', async () => {
+      const userData = {
+        firstName: 'John',
+        lastName: 'Doe',
+        password: 'password',
+      };
+
+      const response = await request(app).post('/auth/register').send(userData);
+      expect(response.status).toBe(400);
+      // expect(response.body.errors).toHaveLength(1);
+    });
+  });
+
+  describe('Fields are not in proper format', () => {
+    it('should trim the email field', async () => {
+      const userData = {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: ' john.doee@xample.com ',
+        password: 'password',
+      };
+
+      await request(app).post('/auth/register').send(userData);
+      const userRepository = AppDataSource.getRepository(User);
+      const users = await userRepository.find();
+      const user = users[0];
+      expect(user?.email).toBe(userData.email.trim());
+    });
+  });
 });
