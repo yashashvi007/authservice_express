@@ -9,7 +9,15 @@ import globals from 'globals';
 export default defineConfig(
   eslint.configs.recommended,
   {
-    ignores: ['dist/**/*', 'node_modules/**/*', '*.config.mjs', '*.config.js', 'jest.config.js', 'jest.setup.js', '**/*.cjs'],
+    ignores: [
+      'dist/**/*',
+      'node_modules/**/*',
+      '*.config.mjs',
+      '*.config.js',
+      'jest.config.js',
+      'jest.setup.js',
+      '**/*.cjs',
+    ],
   },
   ...tseslint.configs.recommendedTypeChecked.map((config) => ({
     ...config,
