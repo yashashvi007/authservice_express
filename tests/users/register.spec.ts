@@ -5,6 +5,7 @@ import { AppDataSource } from '../../src/data-source';
 import { ROLES } from '../../src/constants';
 import app from '../../src/app';
 import { isJwt } from '../../utils';
+import { RefreshToken } from '../../src/entity/RefreshToken';
 
 describe('POST /auth/register', () => {
   beforeAll(async () => {
@@ -24,12 +25,22 @@ describe('POST /auth/register', () => {
         "role" VARCHAR NOT NULL
       )
     `);
+
+    await AppDataSource.query(`
+      CREATE TABLE IF NOT EXISTS "refresh_token" (
+        "id" SERIAL PRIMARY KEY,
+        "expires_at" TIMESTAMP NOT NULL,
+        "userId" INTEGER,
+        "updated_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT "FK_refresh_token_user" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE
+      )
+    `);
   });
 
   beforeEach(async () => {
-    // Clear the user table using AppDataSource
-    const userRepository = AppDataSource.getRepository(User);
-    await userRepository.clear();
+    // Clear the tables in correct order to handle foreign key constraints
+    await AppDataSource.query('TRUNCATE TABLE "refresh_token", "user" CASCADE');
   });
 
   afterAll(async () => {
@@ -188,6 +199,25 @@ describe('POST /auth/register', () => {
       expect(refreshToken).not.toBeNull();
       expect(isJwt(accessToken)).toBeTruthy();
       expect(isJwt(refreshToken)).toBeTruthy();
+    });
+
+    it('should store the refresh token in the database', async () => {
+      const userData = {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        password: 'password',
+      };
+
+      const response = await request(app).post('/auth/register').send(userData);
+      const refreshTokenRepo = AppDataSource.getRepository(RefreshToken);
+      // const refreshTokens = await refreshTokenRepo.find();
+      // expect(refreshTokens).toHaveLength(1);
+      const token = await refreshTokenRepo
+        .createQueryBuilder('refreshToken')
+        .where('refreshToken.userId = :userId', { userId: (response.body as Record<string, string>).id })
+        .getMany();
+      expect(token).toHaveLength(1);
     });
   });
 

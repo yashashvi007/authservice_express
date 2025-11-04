@@ -10,3 +10,10 @@ export interface UserData {
 export interface RegisterRequest extends Request {
   body: UserData;
 }
+
+export interface LoginRequest extends Request {
+  body: {
+    email: string;
+    password: string;
+  };
+}
