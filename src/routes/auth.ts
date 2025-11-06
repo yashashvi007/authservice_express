@@ -11,6 +11,7 @@ import { TokenService } from '../services/TokenService';
 import { RefreshToken } from '../entity/RefreshToken';
 import { CredentialService } from '../services/CredentialsService';
 import authenticate from '../middleware/authenticate';
+import validateRefreshToken from '../middleware/validateRefreshToken';
 
 const router = express.Router();
 const userRepository = AppDataSource.getRepository(User);
@@ -33,6 +34,11 @@ router.get('/self', authenticate, (req: Request, res: Response) => {
     return res.status(401).json({ error: 'Unauthorized' });
   }
   void authController.self(authReq, res);
+});
+
+router.post('/refresh', validateRefreshToken, (req: Request, res: Response, next: NextFunction) => {
+  const authReq = req as AuthRequest;
+  void authController.refresh(authReq, res, next);
 });
 
 export default router;

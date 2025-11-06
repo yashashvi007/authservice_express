@@ -129,6 +129,50 @@ class AuthController {
     const user = await this.userService.findById(Number(req.auth?.sub));
     res.status(200).json(user);
   }
+
+  async refresh(req: AuthRequest, res: Response, next: NextFunction) {
+    try {
+      const payload: JwtPayload = {
+        sub: req.auth?.sub,
+        role: req.auth?.role,
+      };
+
+      const user = await this.userService.findById(Number(req.auth?.sub));
+      if (!user) {
+        const err = createHttpError(401, 'Unauthorized');
+        next(err);
+        return;
+      }
+
+      const accessToken = this.tokenService.generateAccessToken(payload);
+      const newRefreshToken = await this.tokenService.persistRefreshToken(user);
+
+      await this.tokenService.deleteRefreshToken(Number(req.auth?.id));
+      const refreshToken = this.tokenService.generateRefreshToken({
+        ...payload,
+        id: newRefreshToken.id,
+      });
+
+      res.cookie('accessToken', accessToken, {
+        domain: 'localhost',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60,
+        httpOnly: true,
+      });
+
+      res.cookie('refreshToken', refreshToken, {
+        domain: 'localhost',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60 * 24 * 365,
+        httpOnly: true,
+      });
+
+      res.status(200).json({ id: user.id, role: user.role });
+    } catch (error) {
+      next(error);
+      return;
+    }
+  }
 }
 
 export default AuthController;
