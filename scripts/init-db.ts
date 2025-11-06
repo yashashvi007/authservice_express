@@ -1,5 +1,5 @@
 import { Client } from 'pg';
-import { Config } from '../config';
+import { Config } from '../src/config';
 
 const initDatabase = async () => {
   const dbName = Config.DB_NAME || 'postgres';

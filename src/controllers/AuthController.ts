@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { LoginRequest, UserData } from '../types/index';
+import { AuthRequest, LoginRequest, UserData } from '../types/index';
 import { UserService } from '../services/UserService';
 import { Logger } from 'winston';
 import createHttpError from 'http-errors';
@@ -123,6 +123,11 @@ class AuthController {
       next(error);
       return;
     }
+  }
+
+  async self(req: AuthRequest, res: Response) {
+    const user = await this.userService.findById(Number(req.auth?.sub));
+    res.status(200).json(user);
   }
 }
 

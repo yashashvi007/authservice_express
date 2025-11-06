@@ -13,7 +13,7 @@ export class TokenService {
     let privateKey: Buffer;
     try {
       privateKey = fs.readFileSync(path.join(__dirname, '../../certs/private.pem'));
-    } catch (error) {
+    } catch {
       const err = createHttpError(500, 'Failed to read private key');
       throw err;
     }

@@ -17,3 +17,10 @@ export interface LoginRequest extends Request {
     password: string;
   };
 }
+
+export interface AuthRequest extends Request {
+  auth: {
+    sub: string;
+    role: string;
+  };
+}

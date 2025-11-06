@@ -17,11 +17,12 @@ export default defineConfig(
       'jest.config.js',
       'jest.setup.js',
       '**/*.cjs',
+      '**/*.mjs',
     ],
   },
   ...tseslint.configs.recommendedTypeChecked.map((config) => ({
     ...config,
-    ignores: ['dist/**/*', 'node_modules/**/*', '*.config.mjs', '**/*.cjs'],
+    ignores: ['dist/**/*', 'node_modules/**/*', '*.config.mjs', '**/*.cjs', '**/*.mjs'],
   })),
   {
     files: ['**/*.ts', '**/*.tsx'],
