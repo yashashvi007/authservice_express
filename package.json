@@ -12,7 +12,8 @@
     "lint:fix": "eslint . --fix",
     "test": "jest --watch --runInBand",
     "prepare": "husky",
-    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate",
+    "migration:run": "typeorm-ts-node-commonjs migration:run",
     "lint-staged": "lint-staged"
   },
   "author": "",
