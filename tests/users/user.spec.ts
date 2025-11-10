@@ -20,7 +20,7 @@ describe('POST /auth/self', () => {
     }
     jwks?.start();
     // Clear the tables using TRUNCATE CASCADE to handle foreign key constraints
-    await AppDataSource.query('TRUNCATE TABLE refresh_token, "user" CASCADE');
+    await AppDataSource.query('TRUNCATE TABLE "refreshTokens", "users", "tenants" CASCADE');
   });
 
   afterEach(() => {
@@ -56,7 +56,7 @@ describe('POST /auth/self', () => {
       const response = await request(app)
         .get('/auth/self')
         .set('Cookie', [`accessToken=${accessToken}`]);
-      expect((response.body as Record<string, string>).id).toBe(String(data.id));
+      expect((response.body as Record<string, unknown>).id).toBe(data.id);
     });
 
     it('should return 401 status code if access token is provided', async () => {

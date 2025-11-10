@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { HttpError } from 'http-errors';
 import logger from './config/logger';
 import authRoutes from './routes/auth';
+import tenantRoutes from './routes/tenant';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 
@@ -22,6 +23,7 @@ app.get('/.well-known/jwks.json', (req, res) => {
 });
 
 app.use('/auth', authRoutes);
+app.use('/tenants', tenantRoutes);
 
 app.use((err: HttpError, req: Request, res: Response, _next: NextFunction) => {
   logger.error(err.message);

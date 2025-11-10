@@ -8,7 +8,7 @@ describe('POST /auth/login', () => {
       await AppDataSource.initialize();
     }
     // Clear the tables using TRUNCATE CASCADE to handle foreign key constraints
-    await AppDataSource.query('TRUNCATE TABLE refresh_token, "user" CASCADE');
+    await AppDataSource.query('TRUNCATE TABLE "refreshTokens", "users", "tenants" CASCADE');
   });
 
   describe('Given all fields', () => {

@@ -14,33 +14,12 @@ describe('POST /auth/register', () => {
       await AppDataSource.initialize();
     }
 
-    // Create tables manually for tests
-    await AppDataSource.query(`
-      CREATE TABLE IF NOT EXISTS "user" (
-        "id" SERIAL PRIMARY KEY,
-        "firstName" VARCHAR NOT NULL,
-        "lastName" VARCHAR NOT NULL,
-        "email" VARCHAR NOT NULL,
-        "password" VARCHAR NOT NULL,
-        "role" VARCHAR NOT NULL
-      )
-    `);
-
-    await AppDataSource.query(`
-      CREATE TABLE IF NOT EXISTS "refresh_token" (
-        "id" SERIAL PRIMARY KEY,
-        "expires_at" TIMESTAMP NOT NULL,
-        "userId" INTEGER,
-        "updated_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        CONSTRAINT "FK_refresh_token_user" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE
-      )
-    `);
+    // Tables are created by synchronize in jest.setup.ts
   });
 
   beforeEach(async () => {
     // Clear the tables in correct order to handle foreign key constraints
-    await AppDataSource.query('TRUNCATE TABLE "refresh_token", "user" CASCADE');
+    await AppDataSource.query('TRUNCATE TABLE "refreshTokens", "users", "tenants" CASCADE');
   });
 
   afterAll(async () => {
@@ -211,11 +190,10 @@ describe('POST /auth/register', () => {
 
       const response = await request(app).post('/auth/register').send(userData);
       const refreshTokenRepo = AppDataSource.getRepository(RefreshToken);
-      // const refreshTokens = await refreshTokenRepo.find();
-      // expect(refreshTokens).toHaveLength(1);
       const token = await refreshTokenRepo
         .createQueryBuilder('refreshToken')
-        .where('refreshToken.userId = :userId', { userId: (response.body as Record<string, string>).id })
+        .leftJoinAndSelect('refreshToken.user', 'user')
+        .where('user.id = :userId', { userId: (response.body as Record<string, number>).id })
         .getMany();
       expect(token).toHaveLength(1);
     });
@@ -226,7 +204,7 @@ describe('POST /auth/register', () => {
       const userData = {
         firstName: 'John',
         lastName: 'Doe',
-        email: ' john.doee@xample.com ',
+        email: ' john.doe@example.com ',
         password: 'password',
       };
 
