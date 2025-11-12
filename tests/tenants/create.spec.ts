@@ -39,7 +39,7 @@ describe('POST /tenants', () => {
   });
 
   describe('Given all fields', () => {
-    it('should return 201 status code', async () => {
+    it('should return 201 status code and create a tenant', async () => {
       const tenantData = {
         name: 'Test Tenant',
         address: '123 Main St, Anytown, USA',
@@ -63,6 +63,26 @@ describe('POST /tenants', () => {
       };
       const response = await request(app).post('/tenants').send(tenantData);
       expect(response.statusCode).toBe(401);
+      const tenantRepository = AppDataSource.getRepository(Tenant);
+      const tenants = await tenantRepository.find();
+      expect(tenants).toHaveLength(0);
+    });
+
+    it('should return 403 if user is not an admin', async () => {
+      const managerToken = jwks.token({
+        sub: '2',
+        role: ROLES.MANAGER,
+      });
+      const tenantData = {
+        name: 'Test Tenant',
+        address: '123 Main St, Anytown, USA',
+      };
+
+      const response = await request(app)
+        .post('/tenants')
+        .set('Cookie', [`accessToken=${managerToken}`])
+        .send(tenantData);
+      expect(response.statusCode).toBe(403);
       const tenantRepository = AppDataSource.getRepository(Tenant);
       const tenants = await tenantRepository.find();
       expect(tenants).toHaveLength(0);

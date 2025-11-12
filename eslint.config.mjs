@@ -15,14 +15,14 @@ export default defineConfig(
       '*.config.mjs',
       '*.config.js',
       'jest.config.js',
-      'jest.setup.js',
       '**/*.cjs',
       '**/*.mjs',
+      '**/*.spec.ts',
     ],
   },
   ...tseslint.configs.recommendedTypeChecked.map((config) => ({
     ...config,
-    ignores: ['dist/**/*', 'node_modules/**/*', '*.config.mjs', '**/*.cjs', '**/*.mjs'],
+    ignores: ['dist/**/*', 'node_modules/**/*', '*.config.mjs', '**/*.cjs', '**/*.mjs', '**/*.spec.ts'],
   })),
   {
     files: ['**/*.ts', '**/*.tsx'],
