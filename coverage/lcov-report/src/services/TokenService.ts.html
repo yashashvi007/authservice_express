@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.37% </span>
+                <span class="strong">90.56% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/53</span>
+                <span class='fraction'>48/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.37% </span>
+                <span class="strong">90.56% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/53</span>
+                <span class='fraction'>48/53</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -146,24 +146,24 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -181,9 +181,9 @@ import { RefreshToken } from '../entity/RefreshToken';
 export class TokenService {
   constructor(private refreshTokenRepository: Repository&lt;RefreshToken&gt;) {}
   generateAccessToken(payload: JwtPayload) {
-    let privateKey: string;
+    let privateKey: Buffer;
     try {
-      privateKey = Config.PRIVATE_KEY!;
+      privateKey = fs.readFileSync(path.join(__dirname, '../../certs/private.pem'));
     } <span class="branch-0 cbranch-no" title="branch not covered" >catch {</span>
 <span class="cstat-no" title="statement not covered" >      const err = createHttpError(500, 'Failed to read private key');</span>
 <span class="cstat-no" title="statement not covered" >      throw err;</span>
@@ -198,25 +198,25 @@ export class TokenService {
     return accessToken;
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  generateRefreshToken(payload: JwtPayload) {</span>
-<span class="cstat-no" title="statement not covered" >    const refreshToken = sign(payload, Config.REFRESH_TOKEN_SECRET as Secret, {</span>
-<span class="cstat-no" title="statement not covered" >      algorithm: 'HS256',</span>
-<span class="cstat-no" title="statement not covered" >      expiresIn: '1d',</span>
-<span class="cstat-no" title="statement not covered" >      issuer: 'auth-service',</span>
-<span class="cstat-no" title="statement not covered" >      jwtid: String(payload.id),</span>
-<span class="cstat-no" title="statement not covered" >    });</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    return refreshToken;</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+  generateRefreshToken(payload: JwtPayload) {
+    const refreshToken = sign(payload, Config.REFRESH_TOKEN_SECRET as Secret, {
+      algorithm: 'HS256',
+      expiresIn: '1d',
+      issuer: 'auth-service',
+      jwtid: String(payload.id),
+    });
 &nbsp;
-<span class="fstat-no" title="function not covered" >  async persistRefreshToken(user: User) {</span>
-<span class="cstat-no" title="statement not covered" >    const MS_IN_YEAR = 1000 * 60 * 60 * 24 * 365;</span>
-<span class="cstat-no" title="statement not covered" >    const newRefreshToken = await this.refreshTokenRepository.save({</span>
-<span class="cstat-no" title="statement not covered" >      user: user,</span>
-<span class="cstat-no" title="statement not covered" >      expires_at: new Date(Date.now() + MS_IN_YEAR),</span>
-<span class="cstat-no" title="statement not covered" >    });</span>
-<span class="cstat-no" title="statement not covered" >    return newRefreshToken;</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+    return refreshToken;
+  }
+&nbsp;
+  async persistRefreshToken(user: User) {
+    const MS_IN_YEAR = 1000 * 60 * 60 * 24 * 365;
+    const newRefreshToken = await this.refreshTokenRepository.save({
+      user: user,
+      expires_at: new Date(Date.now() + MS_IN_YEAR),
+    });
+    return newRefreshToken;
+  }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  async deleteRefreshToken(tokenId: number) {</span>
 <span class="cstat-no" title="statement not covered" >    return await this.refreshTokenRepository.delete(tokenId);</span>
@@ -229,7 +229,7 @@ export class TokenService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-13T14:44:22.548Z
+                at 2025-11-13T18:40:45.455Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

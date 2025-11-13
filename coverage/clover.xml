@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1763045062622" clover="3.2.0">
-  <project timestamp="1763045062622" name="All files">
-    <metrics statements="886" coveredstatements="551" conditionals="62" coveredconditionals="42" methods="48" coveredmethods="27" elements="996" coveredelements="620" complexity="0" loc="886" ncloc="886" packages="11" files="29" classes="29"/>
+<coverage generated="1763059245528" clover="3.2.0">
+  <project timestamp="1763059245528" name="All files">
+    <metrics statements="897" coveredstatements="597" conditionals="63" coveredconditionals="43" methods="48" coveredmethods="29" elements="1008" coveredelements="669" complexity="0" loc="897" ncloc="897" packages="11" files="29" classes="29"/>
     <package name="src">
-      <metrics statements="128" coveredstatements="61" conditionals="10" coveredconditionals="3" methods="2" coveredmethods="0"/>
+      <metrics statements="129" coveredstatements="62" conditionals="10" coveredconditionals="2" methods="2" coveredmethods="0"/>
       <file name="app.ts" path="/Users/macbook/Desktop/authservice/src/app.ts">
-        <metrics statements="45" coveredstatements="43" conditionals="3" coveredconditionals="3" methods="0" coveredmethods="0"/>
+        <metrics statements="46" coveredstatements="44" conditionals="3" coveredconditionals="2" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -24,33 +24,34 @@
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
-        <line num="30" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="31" count="14" type="stmt"/>
-        <line num="32" count="14" type="cond" truecount="2" falsecount="0"/>
-        <line num="33" count="14" type="stmt"/>
-        <line num="34" count="14" type="stmt"/>
-        <line num="35" count="14" type="stmt"/>
-        <line num="36" count="14" type="stmt"/>
-        <line num="37" count="14" type="stmt"/>
-        <line num="38" count="14" type="stmt"/>
-        <line num="39" count="14" type="stmt"/>
-        <line num="40" count="14" type="stmt"/>
-        <line num="41" count="14" type="stmt"/>
-        <line num="42" count="14" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="32" count="5" type="stmt"/>
+        <line num="33" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="34" count="5" type="stmt"/>
+        <line num="35" count="5" type="stmt"/>
+        <line num="36" count="5" type="stmt"/>
+        <line num="37" count="5" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
+        <line num="40" count="5" type="stmt"/>
+        <line num="41" count="5" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="43" count="5" type="stmt"/>
         <line num="44" count="1" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
       </file>
       <file name="data-source.ts" path="/Users/macbook/Desktop/authservice/src/data-source.ts">
         <metrics statements="18" coveredstatements="18" conditionals="5" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -146,9 +147,9 @@
       </file>
     </package>
     <package name="src.config">
-      <metrics statements="50" coveredstatements="50" conditionals="1" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="60" coveredstatements="60" conditionals="1" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.ts" path="/Users/macbook/Desktop/authservice/src/config/index.ts">
-        <metrics statements="20" coveredstatements="20" conditionals="1" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="30" coveredstatements="30" conditionals="1" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -169,6 +170,16 @@
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
       </file>
       <file name="logger.ts" path="/Users/macbook/Desktop/authservice/src/config/logger.ts">
         <metrics statements="30" coveredstatements="30" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -216,9 +227,9 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="203" coveredstatements="82" conditionals="13" coveredconditionals="11" methods="9" coveredmethods="7"/>
+      <metrics statements="203" coveredstatements="101" conditionals="12" coveredconditionals="11" methods="9" coveredmethods="7"/>
       <file name="AuthController.ts" path="/Users/macbook/Desktop/authservice/src/controllers/AuthController.ts">
-        <metrics statements="178" coveredstatements="61" conditionals="9" coveredconditionals="8" methods="6" coveredmethods="4"/>
+        <metrics statements="178" coveredstatements="80" conditionals="8" coveredconditionals="8" methods="6" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -263,29 +274,29 @@
         <line num="42" count="9" type="stmt"/>
         <line num="43" count="9" type="stmt"/>
         <line num="44" count="9" type="stmt"/>
-        <line num="45" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
+        <line num="45" count="9" type="stmt"/>
+        <line num="46" count="9" type="stmt"/>
+        <line num="47" count="9" type="stmt"/>
+        <line num="48" count="9" type="stmt"/>
+        <line num="49" count="9" type="stmt"/>
+        <line num="50" count="9" type="stmt"/>
+        <line num="51" count="9" type="stmt"/>
+        <line num="52" count="9" type="stmt"/>
+        <line num="53" count="9" type="stmt"/>
+        <line num="54" count="9" type="stmt"/>
+        <line num="55" count="9" type="stmt"/>
+        <line num="56" count="9" type="stmt"/>
+        <line num="57" count="9" type="stmt"/>
+        <line num="58" count="9" type="stmt"/>
+        <line num="59" count="9" type="stmt"/>
+        <line num="60" count="9" type="stmt"/>
+        <line num="61" count="9" type="stmt"/>
+        <line num="62" count="9" type="stmt"/>
+        <line num="63" count="9" type="stmt"/>
         <line num="64" count="11" type="cond" truecount="1" falsecount="0"/>
-        <line num="65" count="10" type="stmt"/>
-        <line num="66" count="10" type="stmt"/>
-        <line num="67" count="10" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
         <line num="68" count="11" type="stmt"/>
         <line num="69" count="3" type="stmt"/>
         <line num="70" count="3" type="stmt"/>
@@ -444,22 +455,22 @@
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="18" count="4" type="cond" truecount="0" falsecount="1"/>
-        <line num="19" count="4" type="stmt"/>
-        <line num="20" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="21" count="4" type="stmt"/>
-        <line num="22" count="4" type="cond" truecount="0" falsecount="1"/>
-        <line num="23" count="4" type="stmt"/>
-        <line num="24" count="4" type="stmt"/>
-        <line num="25" count="4" type="stmt"/>
-        <line num="26" count="4" type="stmt"/>
-        <line num="27" count="4" type="stmt"/>
-        <line num="28" count="4" type="stmt"/>
-        <line num="29" count="4" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="18" count="5" type="cond" truecount="0" falsecount="1"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="20" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="22" count="5" type="cond" truecount="0" falsecount="1"/>
+        <line num="23" count="5" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
+        <line num="25" count="5" type="stmt"/>
+        <line num="26" count="5" type="stmt"/>
+        <line num="27" count="5" type="stmt"/>
+        <line num="28" count="5" type="stmt"/>
+        <line num="29" count="5" type="stmt"/>
       </file>
       <file name="Tenant.ts" path="/Users/macbook/Desktop/authservice/src/entity/Tenant.ts">
         <metrics statements="19" coveredstatements="19" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -490,27 +501,27 @@
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="6" count="11" type="stmt"/>
-        <line num="7" count="11" type="stmt"/>
-        <line num="8" count="11" type="stmt"/>
-        <line num="9" count="11" type="stmt"/>
-        <line num="10" count="11" type="stmt"/>
-        <line num="11" count="11" type="stmt"/>
-        <line num="12" count="11" type="stmt"/>
-        <line num="13" count="11" type="stmt"/>
-        <line num="14" count="11" type="stmt"/>
-        <line num="15" count="11" type="stmt"/>
-        <line num="16" count="11" type="stmt"/>
-        <line num="17" count="11" type="stmt"/>
-        <line num="18" count="11" type="stmt"/>
-        <line num="19" count="11" type="stmt"/>
-        <line num="20" count="11" type="stmt"/>
-        <line num="21" count="11" type="stmt"/>
-        <line num="22" count="11" type="stmt"/>
-        <line num="23" count="11" type="stmt"/>
-        <line num="24" count="11" type="cond" truecount="1" falsecount="0"/>
-        <line num="25" count="11" type="cond" truecount="0" falsecount="1"/>
-        <line num="26" count="11" type="stmt"/>
+        <line num="6" count="12" type="stmt"/>
+        <line num="7" count="12" type="stmt"/>
+        <line num="8" count="12" type="stmt"/>
+        <line num="9" count="12" type="stmt"/>
+        <line num="10" count="12" type="stmt"/>
+        <line num="11" count="12" type="stmt"/>
+        <line num="12" count="12" type="stmt"/>
+        <line num="13" count="12" type="stmt"/>
+        <line num="14" count="12" type="stmt"/>
+        <line num="15" count="12" type="stmt"/>
+        <line num="16" count="12" type="stmt"/>
+        <line num="17" count="12" type="stmt"/>
+        <line num="18" count="12" type="stmt"/>
+        <line num="19" count="12" type="stmt"/>
+        <line num="20" count="12" type="stmt"/>
+        <line num="21" count="12" type="stmt"/>
+        <line num="22" count="12" type="stmt"/>
+        <line num="23" count="12" type="stmt"/>
+        <line num="24" count="12" type="cond" truecount="1" falsecount="0"/>
+        <line num="25" count="12" type="cond" truecount="0" falsecount="1"/>
+        <line num="26" count="12" type="stmt"/>
       </file>
     </package>
     <package name="src.middleware">
@@ -772,7 +783,7 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="101" coveredstatements="73" conditionals="14" coveredconditionals="12" methods="15" coveredmethods="10"/>
+      <metrics statements="101" coveredstatements="89" conditionals="16" coveredconditionals="14" methods="15" coveredmethods="12"/>
       <file name="CredentialsService.ts" path="/Users/macbook/Desktop/authservice/src/services/CredentialsService.ts">
         <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -797,7 +808,7 @@
         <line num="10" count="3" type="stmt"/>
       </file>
       <file name="TokenService.ts" path="/Users/macbook/Desktop/authservice/src/services/TokenService.ts">
-        <metrics statements="53" coveredstatements="32" conditionals="4" coveredconditionals="3" methods="6" coveredmethods="3"/>
+        <metrics statements="53" coveredstatements="48" conditionals="6" coveredconditionals="5" methods="6" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -827,25 +838,25 @@
         <line num="27" count="9" type="stmt"/>
         <line num="28" count="9" type="stmt"/>
         <line num="29" count="3" type="stmt"/>
-        <line num="30" count="3" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
+        <line num="30" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="31" count="9" type="stmt"/>
+        <line num="32" count="9" type="stmt"/>
+        <line num="33" count="9" type="stmt"/>
+        <line num="34" count="9" type="stmt"/>
+        <line num="35" count="9" type="stmt"/>
+        <line num="36" count="9" type="stmt"/>
+        <line num="37" count="9" type="stmt"/>
+        <line num="38" count="9" type="stmt"/>
+        <line num="39" count="9" type="stmt"/>
         <line num="40" count="3" type="stmt"/>
-        <line num="41" count="3" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
+        <line num="41" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="42" count="9" type="stmt"/>
+        <line num="43" count="9" type="stmt"/>
+        <line num="44" count="9" type="stmt"/>
+        <line num="45" count="9" type="stmt"/>
+        <line num="46" count="9" type="stmt"/>
+        <line num="47" count="9" type="stmt"/>
+        <line num="48" count="9" type="stmt"/>
         <line num="49" count="3" type="stmt"/>
         <line num="50" count="3" type="stmt"/>
         <line num="51" count="0" type="stmt"/>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.26% </span>
+                <span class="strong">44.94% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>61/178</span>
+                <span class='fraction'>80/178</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.26% </span>
+                <span class="strong">44.94% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>61/178</span>
+                <span class='fraction'>80/178</span>
             </div>
         
             
@@ -285,29 +285,29 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -463,25 +463,25 @@ class AuthController {
       const accessToken = this.tokenService.generateAccessToken(payload);
 &nbsp;
       const persistedRefreshToken = await this.tokenService.persistRefreshToken(user);
-<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span>
-<span class="cstat-no" title="statement not covered" >      const refreshToken = this.tokenService.generateRefreshToken({</span>
-<span class="cstat-no" title="statement not covered" >        ...payload,</span>
-<span class="cstat-no" title="statement not covered" >        id: persistedRefreshToken.id,</span>
-<span class="cstat-no" title="statement not covered" >      });</span>
-<span class="cstat-no" title="statement not covered" >      res.cookie('accessToken', accessToken, {</span>
-<span class="cstat-no" title="statement not covered" >        domain: 'localhost',</span>
-<span class="cstat-no" title="statement not covered" >        sameSite: 'strict',</span>
-<span class="cstat-no" title="statement not covered" >        maxAge: 1000 * 60 * 60,</span>
-<span class="cstat-no" title="statement not covered" >        httpOnly: true,</span>
-<span class="cstat-no" title="statement not covered" >      });</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      res.cookie('refreshToken', refreshToken, {</span>
-<span class="cstat-no" title="statement not covered" >        domain: 'localhost',</span>
-<span class="cstat-no" title="statement not covered" >        sameSite: 'strict',</span>
-<span class="cstat-no" title="statement not covered" >        maxAge: 1000 * 60 * 60 * 24 * 365,</span>
-<span class="cstat-no" title="statement not covered" >        httpOnly: true,</span>
-<span class="cstat-no" title="statement not covered" >      });</span>
-<span class="cstat-no" title="statement not covered" >      res.status(201).json({ id: user.id, role: user.role });</span>
+&nbsp;
+      const refreshToken = this.tokenService.generateRefreshToken({
+        ...payload,
+        id: persistedRefreshToken.id,
+      });
+      res.cookie('accessToken', accessToken, {
+        domain: 'localhost',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60,
+        httpOnly: true,
+      });
+&nbsp;
+      res.cookie('refreshToken', refreshToken, {
+        domain: 'localhost',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60 * 24 * 365,
+        httpOnly: true,
+      });
+      res.status(201).json({ id: user.id, role: user.role });
     } catch (error) {
       next(error);
       return;
@@ -604,7 +604,7 @@ export default AuthController;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-13T14:44:22.548Z
+                at 2025-11-13T18:40:45.455Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
