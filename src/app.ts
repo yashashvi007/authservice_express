@@ -7,6 +7,9 @@ import tenantRoutes from './routes/tenant';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 
+// FtSi*Ura/mq-wv3
+// b9248ead865e276e5e3a53732b2661111dd929ec
+
 const app = express();
 app.use(express.static(path.join(process.cwd(), 'public')));
 

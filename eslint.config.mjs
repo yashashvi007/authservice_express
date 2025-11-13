@@ -12,6 +12,7 @@ export default defineConfig(
     ignores: [
       'dist/**/*',
       'node_modules/**/*',
+      'coverage/**/*',
       '*.config.mjs',
       '*.config.js',
       'jest.config.js',
@@ -22,7 +23,7 @@ export default defineConfig(
   },
   ...tseslint.configs.recommendedTypeChecked.map((config) => ({
     ...config,
-    ignores: ['dist/**/*', 'node_modules/**/*', '*.config.mjs', '**/*.cjs', '**/*.mjs', '**/*.spec.ts'],
+    ignores: ['dist/**/*', 'node_modules/**/*', 'coverage/**/*', '*.config.mjs', '**/*.cjs', '**/*.mjs', '**/*.spec.ts'],
   })),
   {
     files: ['**/*.ts', '**/*.tsx'],
