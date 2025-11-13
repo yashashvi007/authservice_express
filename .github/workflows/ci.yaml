@@ -17,10 +17,21 @@ jobs:
         run: npm ci
       - name: Run eslint
         run: npm run lint
-      - name: Debug DB_HOST
+      - name: Create .env.test and debug
         run: |
-          echo "DB_HOST from secret: ${{ secrets.TEST_DB_HOST }}"
-          echo "NODE_ENV will be: test"
+          cat > .env.test << EOF
+          NODE_ENV=test
+          DB_HOST=${{ secrets.TEST_DB_HOST }}
+          DB_PORT=${{ secrets.TEST_DB_PORT }}
+          DB_USERNAME=${{ secrets.TEST_DB_USERNAME }}
+          DB_PASSWORD=${{ secrets.TEST_DB_PASSWORD }}
+          DB_NAME=${{ secrets.TEST_DB_NAME }}
+          REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}
+          JWKS_URI=${{ secrets.JWKS_URI }}
+          PRIVATE_KEY=${{ secrets.PRIVATE_KEY }}
+          EOF
+          echo "Contents of .env.test:"
+          cat .env.test
         env:
           DB_HOST: ${{ secrets.TEST_DB_HOST }}
           NODE_ENV: test
