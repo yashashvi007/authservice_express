@@ -35,6 +35,17 @@ jobs:
         env:
           DB_HOST: ${{ secrets.TEST_DB_HOST }}
           NODE_ENV: test
+      - name: Initialize database
+        run: |
+          echo "Running init-db script..."
+          npx ts-node scripts/init-db.ts
+        env:
+          NODE_ENV: test
+          DB_HOST: ${{ secrets.TEST_DB_HOST }}
+          DB_PORT: ${{ secrets.TEST_DB_PORT }}
+          DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+          DB_NAME: ${{ secrets.TEST_DB_NAME }}
       - name: Test and coverage
         run: |
           echo "DB_HOST in test step: $DB_HOST"
