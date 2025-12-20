@@ -1,58 +1,26 @@
 name: CI
 on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+    pull_request:
+      branches:
+        - main
+
+    push:
+      branches:
+        - main
+
 jobs:
   build-and-test:
     name: Build the project
     runs-on: ubuntu-latest
-    # if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v3
-      - name: Intall dependencies
+      - name: Install dependencies
         run: npm ci
       - name: Run eslint
         run: npm run lint
-      - name: Create .env.test and debug
-        run: |
-          cat > .env.test << EOF
-          NODE_ENV=test
-          DB_HOST=${{ secrets.TEST_DB_HOST }}
-          DB_PORT=${{ secrets.TEST_DB_PORT }}
-          DB_USERNAME=${{ secrets.TEST_DB_USERNAME }}
-          DB_PASSWORD=${{ secrets.TEST_DB_PASSWORD }}
-          DB_NAME=${{ secrets.TEST_DB_NAME }}
-          REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}
-          JWKS_URI=${{ secrets.JWKS_URI }}
-          PRIVATE_KEY=${{ secrets.PRIVATE_KEY }}
-          EOF
-          echo "Contents of .env.test:"
-          cat .env.test
-        env:
-          DB_HOST: ${{ secrets.TEST_DB_HOST }}
-          NODE_ENV: test
-      - name: Initialize database
-        run: |
-          echo "Running init-db script..."
-          npx ts-node scripts/init-db.ts
-        env:
-          NODE_ENV: test
-          DB_HOST: ${{ secrets.TEST_DB_HOST }}
-          DB_PORT: ${{ secrets.TEST_DB_PORT }}
-          DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
-          DB_NAME: ${{ secrets.TEST_DB_NAME }}
       - name: Test and coverage
-        run: |
-          echo "DB_HOST in test step: $DB_HOST"
-          echo "NODE_ENV in test step: $NODE_ENV"
-          npm run test
+        run: npm run test
         env:
-          NODE_ENV: test
           DB_HOST: ${{ secrets.TEST_DB_HOST }}
           DB_PORT: ${{ secrets.TEST_DB_PORT }}
           DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
@@ -63,29 +31,29 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       - name: Build-ts
         run: npm run build
-      - name: SonarCloud Scan
+      - name: Sonarcloud scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
   build-and-push-docker:
-    name: Build and push docker image
+    name: Build and Push Docker Image
     needs: build-and-test
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: yashashvi/authservice
+      IMAGE_NAME: codersgyan/mernspace_auth_test
       IMAGE_TAG: build-${{ github.run_number }}
-    if: github.ref == 'refs/head/main' &&  github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
-      - name: Checkout repository
+      - name: Checkout respository
         uses: actions/checkout@v3
-      - name: Login to Docker Hub
+      - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Build and push docker image
+      - name: Build Docker image
         run: docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} -f docker/prod/Dockerfile .
-      - name: Push Docker image to Docker Hub
+      - name: Push Docker image
         run: docker push ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+
