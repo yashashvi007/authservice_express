@@ -12,9 +12,14 @@ export class TokenService {
   generateAccessToken(payload: JwtPayload) {
     let privateKey: Buffer;
     try {
-      privateKey = fs.readFileSync(path.join(__dirname, '../../certs/private.pem'));
-    } catch {
-      const err = createHttpError(500, 'Failed to read private key');
+      // Resolve path relative to project root, works in both src/ and dist/ directories
+      const certsPath = path.resolve(process.cwd(), 'certs', 'private.pem');
+      privateKey = fs.readFileSync(certsPath);
+    } catch (error) {
+      const err = createHttpError(
+        500,
+        `Failed to read private key: ${error instanceof Error ? error.message : String(error)}`,
+      );
       throw err;
     }
 
