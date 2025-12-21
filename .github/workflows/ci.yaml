@@ -12,20 +12,8 @@ jobs:
   build-and-test:
     name: Build the project
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: test_db
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
+    # Railway database is used via secrets (TEST_DB_HOST, etc.)
+    # Local PostgreSQL service removed - using Railway for consistency
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
@@ -38,11 +26,13 @@ jobs:
         run: npm run test
         env:
           NODE_ENV: test
-          DB_HOST: db.sdnnpedlzhvslbvagmvm.supabase.co
-          DB_PORT: 5432
-          DB_USERNAME: postgres
-          DB_PASSWORD: FtSi*Ura/mq-wv3
-          DB_NAME: postgres
+          # Use Railway database for CI (same as production for consistency)
+          # Add these secrets in GitHub: Settings → Secrets and variables → Actions
+          DB_HOST: ${{ secrets.TEST_DB_HOST }}
+          DB_PORT: ${{ secrets.TEST_DB_PORT }}
+          DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+          DB_NAME: ${{ secrets.TEST_DB_NAME }}
           REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
           JWKS_URI: ${{ secrets.JWKS_URI }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
