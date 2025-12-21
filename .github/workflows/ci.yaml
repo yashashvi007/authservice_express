@@ -58,7 +58,7 @@ jobs:
     needs: build-and-test
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: codersgyan/mernspace_auth_test
+      IMAGE_NAME: yash007047/mernspace_auth_test
       IMAGE_TAG: build-${{ github.run_number }}
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
