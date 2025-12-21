@@ -38,11 +38,11 @@ jobs:
         run: npm run test
         env:
           NODE_ENV: test
-          DB_HOST: localhost
+          DB_HOST: db.sdnnpedlzhvslbvagmvm.supabase.co
           DB_PORT: 5432
           DB_USERNAME: postgres
-          DB_PASSWORD: postgres
-          DB_NAME: test_db
+          DB_PASSWORD: FtSi*Ura/mq-wv3
+          DB_NAME: postgres
           REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
           JWKS_URI: ${{ secrets.JWKS_URI }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
