@@ -26,6 +26,10 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ message: 'OK' });
+});
+
 // Explicit route for JWKS endpoint
 app.get('/.well-known/jwks.json', (req, res) => {
   res.sendFile('jwks.json', { root: 'public/.well-known' });
