@@ -9,14 +9,6 @@ import path from 'path';
 import cors from 'cors';
 import { Config } from './config/index';
 
-// supabase
-// FtSi*Ura/mq-wv3
-// sonar
-// b9248ead865e276e5e3a53732b2661111dd929ec
-// docker hub
-// docker login -u yash007047
-// dckr_pat_8JcZZqWsqXtd8dgO_anxSgOOFzk
-
 const app = express();
 
 const corsOptions = {
@@ -24,7 +16,6 @@ const corsOptions = {
   credentials: true,
 };
 
- 
 app.use(cors(corsOptions));
 app.use(express.static(path.join(process.cwd(), 'public')));
 
