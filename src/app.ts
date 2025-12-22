@@ -6,11 +6,17 @@ import authRoutes from './routes/auth';
 import tenantRoutes from './routes/tenant';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-
-// FtSi*Ura/mq-wv3
-// b9248ead865e276e5e3a53732b2661111dd929ec
+import cors from 'cors';
+import { Config } from './config/index';
 
 const app = express();
+
+const corsOptions = {
+  origin: Config.FRONTEND_URL,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.static(path.join(process.cwd(), 'public')));
 
 app.use(cookieParser());
