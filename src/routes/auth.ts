@@ -41,4 +41,8 @@ router.post('/refresh', validateRefreshToken, (req: Request, res: Response, next
   void authController.refresh(authReq, res, next);
 });
 
+router.post('/logout', authenticate, (req: Request, res: Response, next: NextFunction) => {
+  void authController.logout(req as AuthRequest, res, next);
+});
+
 export default router;
