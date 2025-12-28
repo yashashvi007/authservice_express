@@ -26,6 +26,6 @@ export class UserService {
   }
 
   async findById(id: number): Promise<User | null> {
-    return await this.userRepository.findOne({ where: { id } });
+    return await this.userRepository.findOne({ where: { id }, relations: { tenant: true } });
   }
 }
