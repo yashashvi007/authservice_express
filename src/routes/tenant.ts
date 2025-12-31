@@ -1,4 +1,4 @@
-import express, { NextFunction, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { CreateTenantRequest } from '../types/index';
 import { TenantService } from '../services/TenantService';
 import { AppDataSource } from '../data-source';
@@ -21,5 +21,7 @@ router.post(
     void tenantController.create(req, res, next);
   },
 );
+
+router.get('/', (req: Request, res: Response, next: NextFunction) => void tenantController.getTenants(req, res, next));
 
 export default router;

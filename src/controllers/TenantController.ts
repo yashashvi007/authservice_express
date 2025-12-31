@@ -1,4 +1,4 @@
-import { NextFunction, Response } from 'express';
+import { NextFunction, Response, Request } from 'express';
 import { TenantService } from '../services/TenantService';
 import { CreateTenantRequest } from '../types/index';
 import createHttpError from 'http-errors';
@@ -18,6 +18,17 @@ export class TenantController {
       res.status(201).json(tenant);
     } catch (error) {
       const err = createHttpError(500, 'Failed to create tenant');
+      next(err);
+      return;
+    }
+  }
+
+  async getTenants(req: Request, res: Response, next: NextFunction) {
+    try {
+      const tenants = await this.tenantService.getAllTenants();
+      return res.status(200).json(tenants);
+    } catch (error) {
+      const err = createHttpError(500, 'Failed to get tenants');
       next(err);
       return;
     }
