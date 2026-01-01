@@ -7,6 +7,7 @@ import { validationResult } from 'express-validator';
 import { JwtPayload } from 'jsonwebtoken';
 import { TokenService } from '../services/TokenService';
 import { CredentialService } from '../services/CredentialsService';
+import { ROLES } from '../constants';
 
 interface RegisterRequest extends Request {
   body: UserData;
@@ -31,7 +32,7 @@ class AuthController {
     this.logger.debug(`Registering user ${firstName} ${lastName} with email ${email}`);
 
     try {
-      const user = await this.userService.create({ firstName, lastName, email, password });
+      const user = await this.userService.create({ firstName, lastName, email, password, role: ROLES.CUSTOMER });
       this.logger.info(`User ${firstName} ${lastName} registered successfully`);
 
       const payload: JwtPayload = {

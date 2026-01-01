@@ -1,6 +1,8 @@
 import createHttpError from 'http-errors';
 import { UserService } from '../services/UserService';
 import { NextFunction, Request, Response } from 'express';
+import { CreateUserRequest } from '../types/index';
+import { validationResult } from 'express-validator';
 
 export class UserController {
   constructor(private userService: UserService) {
@@ -11,10 +13,42 @@ export class UserController {
     try {
       const users = await this.userService.getAllUsers();
       return res.status(200).json(users);
-    } catch (error) {
+    } catch {
       const err = createHttpError(500, 'Failed to get users');
       next(err);
       return;
+    }
+  }
+
+  async createUser(req: CreateUserRequest, res: Response, next: NextFunction) {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return next(createHttpError(400, result.array()[0]?.msg as string));
+    }
+
+    const { firstName, lastName, email, password, role, tenantId } = req.body;
+    try {
+      const userData: {
+        firstName: string;
+        lastName: string;
+        email: string;
+        password: string;
+        role: string;
+        tenantId?: number;
+      } = {
+        firstName,
+        lastName,
+        email,
+        password,
+        role,
+      };
+      if (tenantId !== undefined) {
+        userData.tenantId = tenantId;
+      }
+      const user = await this.userService.create(userData);
+      res.status(201).json(user);
+    } catch (error) {
+      next(error);
     }
   }
 }
