@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
 import { User } from '../entity/User';
-import { UserData } from '../types';
+import { UserData } from '../types/index';
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
 export class UserService {
   constructor(private userRepository: Repository<User>) {}
-  async create({ firstName, lastName, email, password }: UserData) {
+  async create({ firstName, lastName, email, password, role, tenantId }: UserData) {
     const user = await this.userRepository.findOne({ where: { email } });
     if (user) {
       const err = createHttpError(400, 'Email already in use');
@@ -13,9 +13,21 @@ export class UserService {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
-      return await this.userRepository.save({ firstName, lastName, email, password: hashedPassword, role: 'customer' });
-      // eslint-disable-next-line unused-imports/no-unused-vars
-    } catch (error) {
+      const userData: Partial<User> = {
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+        role,
+      };
+
+      if (typeof tenantId === 'number') {
+        // TypeORM allows setting relations with just { id } - this is safe at runtime
+        userData.tenant = { id: tenantId } as User['tenant'];
+      }
+
+      return await this.userRepository.save(userData);
+    } catch {
       const err = createHttpError(500, 'Failed to create user in database');
       throw err;
     }
