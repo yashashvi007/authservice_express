@@ -1,8 +1,8 @@
 import createHttpError from 'http-errors';
 import { UserService } from '../services/UserService';
 import { NextFunction, Request, Response } from 'express';
-import { CreateUserRequest } from '../types/index';
-import { validationResult } from 'express-validator';
+import { CreateUserRequest, UserQueryParams } from '../types/index';
+import { matchedData, validationResult } from 'express-validator';
 
 export class UserController {
   constructor(private userService: UserService) {
@@ -10,9 +10,15 @@ export class UserController {
   }
 
   async getUsers(req: Request, res: Response, next: NextFunction) {
+    const data = matchedData(req, { includeOptionals: true });
     try {
-      const users = await this.userService.getAllUsers();
-      return res.status(200).json(users);
+      const [users, total] = await this.userService.getAllUsers(data as UserQueryParams);
+      return res.status(200).json({
+        currentPage: data.currentPage as number,
+        perPage: data.perPage as number,
+        total,
+        data: users,
+      });
     } catch {
       const err = createHttpError(500, 'Failed to get users');
       next(err);

@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { User } from '../entity/User';
-import { UserData } from '../types/index';
+import { UserData, UserQueryParams } from '../types/index';
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
 export class UserService {
@@ -41,7 +41,13 @@ export class UserService {
     return await this.userRepository.findOne({ where: { id }, relations: { tenant: true } });
   }
 
-  async getAllUsers(): Promise<User[]> {
-    return await this.userRepository.find();
+  async getAllUsers(validatedData: UserQueryParams): Promise<[User[], number]> {
+    const { perPage, currentPage } = validatedData;
+    const queryBuilder = this.userRepository.createQueryBuilder('user');
+    const result = await queryBuilder
+      .skip((currentPage - 1) * perPage)
+      .take(perPage)
+      .getManyAndCount();
+    return result;
   }
 }

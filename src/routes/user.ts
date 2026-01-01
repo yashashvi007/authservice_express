@@ -7,6 +7,7 @@ import { UserService } from '../services/UserService';
 import { AppDataSource } from '../data-source';
 import { User } from '../entity/User';
 import { CreateUserRequest } from '../types/index';
+import listUsersValidator from '../validators/list-users-validator';
 
 const userRepository = AppDataSource.getRepository(User);
 const userService = new UserService(userRepository);
@@ -17,6 +18,7 @@ router.get(
   '/',
   authenticate,
   canAccess([ROLES.ADMIN]),
+  listUsersValidator,
   (req: Request, res: Response, next: NextFunction) => void userController.getUsers(req, res, next),
 );
 
