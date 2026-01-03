@@ -51,3 +51,8 @@ export interface CreateTenantRequest extends Request {
 export interface CreateUserRequest extends Request {
   body: UserData;
 }
+
+export interface UserQueryParams {
+  perPage: number;
+  currentPage: number;
+}
