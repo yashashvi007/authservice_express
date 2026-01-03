@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Brackets, Repository } from 'typeorm';
 import { User } from '../entity/User';
 import { UserData, UserQueryParams } from '../types/index';
 import createHttpError from 'http-errors';
@@ -42,11 +42,28 @@ export class UserService {
   }
 
   async getAllUsers(validatedData: UserQueryParams): Promise<[User[], number]> {
-    const { perPage, currentPage } = validatedData;
+    const { perPage, currentPage, q, role } = validatedData;
     const queryBuilder = this.userRepository.createQueryBuilder('user');
+
+    if (q) {
+      const searchTerm = `%${q}%`;
+      queryBuilder.where(
+        new Brackets((qb) => {
+          qb.where(
+            '(user.firstName ILike :searchTerm OR user.lastName ILike :searchTerm OR user.email ILike :searchTerm)',
+            { searchTerm },
+          );
+        }),
+      );
+    }
+
+    if (role) {
+      queryBuilder.andWhere('user.role = :role', { role });
+    }
     const result = await queryBuilder
       .skip((currentPage - 1) * perPage)
       .take(perPage)
+      .orderBy('user.id', 'DESC')
       .getManyAndCount();
     return result;
   }
