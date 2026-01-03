@@ -11,6 +11,7 @@ export class UserController {
 
   async getUsers(req: Request, res: Response, next: NextFunction) {
     const data = matchedData(req, { includeOptionals: true });
+    console.log(data);
     try {
       const [users, total] = await this.userService.getAllUsers(data as UserQueryParams);
       return res.status(200).json({
