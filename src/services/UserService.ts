@@ -1,6 +1,6 @@
 import { Brackets, Repository } from 'typeorm';
 import { User } from '../entity/User';
-import { UserData, UserQueryParams } from '../types/index';
+import { UpdateUserData, UserData, UserQueryParams } from '../types/index';
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
 export class UserService {
@@ -67,5 +67,26 @@ export class UserService {
       .orderBy('user.id', 'DESC')
       .getManyAndCount();
     return result;
+  }
+
+  async updateUser(userId: number, updateData: UpdateUserData): Promise<void> {
+    try {
+      const updatePayload: Partial<User> = {
+        firstName: updateData.firstName,
+        lastName: updateData.lastName,
+        email: updateData.email,
+        role: updateData.role,
+      };
+
+      if (updateData.tenantId !== undefined && typeof updateData.tenantId === 'number') {
+        // TypeORM allows setting relations with just { id } - this is safe at runtime
+        updatePayload.tenant = { id: updateData.tenantId } as User['tenant'];
+      }
+
+      await this.userRepository.update(userId, updatePayload);
+    } catch {
+      const err = createHttpError(500, 'Failed to update user in database');
+      throw err;
+    }
   }
 }
