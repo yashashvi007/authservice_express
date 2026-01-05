@@ -1,7 +1,7 @@
 import createHttpError from 'http-errors';
 import { UserService } from '../services/UserService';
 import { NextFunction, Request, Response } from 'express';
-import { CreateUserRequest, UserQueryParams } from '../types/index';
+import { CreateUserRequest, UpdateUserData, UpdateUserRequest, UserQueryParams } from '../types/index';
 import { matchedData, validationResult } from 'express-validator';
 
 export class UserController {
@@ -55,6 +55,38 @@ export class UserController {
       res.status(201).json(user);
     } catch (error) {
       next(error);
+    }
+  }
+
+  async updateUser(req: UpdateUserRequest, res: Response, next: NextFunction) {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return next(createHttpError(400, result.array()[0]?.msg as string));
+    }
+
+    const { firstName, lastName, email, role, tenantId } = req.body;
+    const userId = Number(req.params.id);
+
+    if (isNaN(userId)) {
+      next(createHttpError(400, 'Invalid user ID'));
+      return;
+    }
+
+    try {
+      const updateData: UpdateUserData = {
+        firstName,
+        lastName,
+        email,
+        role,
+      };
+      if (tenantId !== undefined) {
+        updateData.tenantId = tenantId;
+      }
+      await this.userService.updateUser(userId, updateData);
+      res.status(200).json({ message: 'User updated successfully' });
+    } catch (error) {
+      next(error);
+      return;
     }
   }
 }

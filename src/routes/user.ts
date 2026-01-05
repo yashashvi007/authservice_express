@@ -6,8 +6,9 @@ import { UserController } from '../controllers/UserController';
 import { UserService } from '../services/UserService';
 import { AppDataSource } from '../data-source';
 import { User } from '../entity/User';
-import { CreateUserRequest } from '../types/index';
+import { CreateUserRequest, UpdateUserRequest } from '../types/index';
 import listUsersValidator from '../validators/list-users-validator';
+import updateUserValidator from '../validators/update-user-validator';
 
 const userRepository = AppDataSource.getRepository(User);
 const userService = new UserService(userRepository);
@@ -28,4 +29,15 @@ router.post(
   canAccess([ROLES.ADMIN]),
   (req: CreateUserRequest, res: Response, next: NextFunction) => void userController.createUser(req, res, next),
 );
+
+router.patch(
+  '/:id',
+  authenticate,
+  canAccess([ROLES.ADMIN]),
+  updateUserValidator,
+  (req: Request, res: Response, next: NextFunction) => {
+    void userController.updateUser(req as UpdateUserRequest, res, next);
+  },
+);
+
 export default router;
