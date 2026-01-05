@@ -58,3 +58,15 @@ export interface UserQueryParams {
   q: string;
   role: string;
 }
+
+export interface UpdateUserData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  tenantId?: number;
+}
+
+export interface UpdateUserRequest extends Request {
+  body: UpdateUserData;
+}
